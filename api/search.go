@@ -1,18 +1,20 @@
-package github
+package githuber
 
 import (
+	"encoding/json"
+	"fmt"
+	"net/http"
 	"net/url"
 	"strings"
-	"net/http"
-	"fmt"
-	"encoding/json"
 )
+
+const issuesUrl = "https://api.github.com/search/issues"
 
 // SearchIssues запрашивает github
 func SearchIssues(terms []string) (*IssuesSearchResult, error) {
 	q := url.QueryEscape(strings.Join(terms, " "))
 
-	resp, err := http.Get(IssuesUrl + "?q=" + q)
+	resp, err := http.Get(issuesUrl + "?q=" + q)
 	if err != nil {
 		return nil, err
 	}
